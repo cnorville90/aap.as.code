@@ -3,15 +3,16 @@
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    my_organization: "AmesCO"
-    my_aap_url: "https://aap.kona.services"
-    my_aap_credential: "aap.kona.services"
-    my_vault: ames
+    my_organization: "Norville"
+    my_aap_url: "https://aap.thenorvilles.com"
+    my_aap_credential: "aap.thenorvilles.com"
+    my_vault: Norville
 
     # There is a bug in the infra.aap_configuration that causes the need for thing
     # When bug https://issues.redhat.com/browse/AAP-39349 this section can go away
     # We will need to uncomment the token sections below
     # Mapping red hat automation platform controller credential to infra.aap_configuration collection
+    # Getting these values from the Red Hat Ansible Automation Platform in Controller
     aap_hostname: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
     aap_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
     aap_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
@@ -41,44 +42,44 @@
     #     scope: write
     #     state: present
 
-    - name: Include configurations
-      ansible.builtin.include_vars:
-        dir: files/config_as_code
+    # - name: Include configurations
+    #   ansible.builtin.include_vars:
+    #     dir: files/config_as_code
 
-    - name: Grab vault from remote url
-      when: 'remotevault is true'
-      ansible.builtin.get_url:
-        url: '{{ my_vault }}'
-        dest: files/vaults/remotevault.yml
-        mode: '0644'
+    # - name: Grab vault from remote url
+    #   when: 'remotevault is true'
+    #   ansible.builtin.get_url:
+    #     url: '{{ my_vault }}'
+    #     dest: files/vaults/remotevault.yml
+    #     mode: '0644'
 
-    - name: Include my Remote vault
-      when: 'remotevault is true'
-      ansible.builtin.include_vars:
-        dir: files/vaults
-        files_matching: remotevault.yml
+    # - name: Include my Remote vault
+    #   when: 'remotevault is true'
+    #   ansible.builtin.include_vars:
+    #     dir: files/vaults
+    #     files_matching: remotevault.yml
 
-    - name: Include my vault
-      when: 'remotevault is not defined'
-      ansible.builtin.include_vars:
-        dir: files/vaults
-        files_matching: "{{ my_vault }}"
+    # - name: Include my vault
+    #   when: 'remotevault is not defined'
+    #   ansible.builtin.include_vars:
+    #     dir: files/vaults
+    #     files_matching: "{{ my_vault }}"
 
-    - name: Do stuff
-      vars:
-        meta_dependency_check: false  # noqa: var-naming[no-role-prefix]
-      ansible.builtin.include_role:
-        name: infra.aap_configuration.dispatch
+    # - name: Do stuff
+    #   vars:
+    #     meta_dependency_check: false  # noqa: var-naming[no-role-prefix]
+    #   ansible.builtin.include_role:
+    #     name: infra.aap_configuration.dispatch
 
-    - name: Print Message
-      when: user_message is defined
-      ansible.builtin.debug:
-        msg: "{{ user_message }}"
+    # - name: Print Message
+    #   when: user_message is defined
+    #   ansible.builtin.debug:
+    #     msg: "{{ user_message }}"
 
-    # - name: Remove my token
-    #   ansible.controller.token:
-    #     controller_host: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}:8443"
-    #     controller_oauthtoken: "{{ controller_token }}"
-    #     existing_token: "{{ controller_token }}"
-    #     validate_certs: false
-    #     state: absent
+    # # - name: Remove my token
+    # #   ansible.controller.token:
+    # #     controller_host: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}:8443"
+    # #     controller_oauthtoken: "{{ controller_token }}"
+    # #     existing_token: "{{ controller_token }}"
+    # #     validate_certs: false
+    # #     state: absent
