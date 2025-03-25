@@ -52,11 +52,6 @@
         url: '{{ my_remote_vault }}'
         dest: files/vaults/remotevault.yml
         mode: '0644'
-      register: remotevault_out
-
-    - name: Dump it out
-      ansible.builtin.debug:
-        var: remotevault_out
 
     - name: Include my Remote vault
       when: 'remotevault is true'
