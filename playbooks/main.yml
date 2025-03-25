@@ -46,26 +46,21 @@
       ansible.builtin.include_vars:
         dir: files/config_as_code
 
-    # - name: Grab vault from remote url
-    #   when: 'remotevault is true'
-    #   ansible.builtin.get_url:
-    #     url: '{{ my_vault }}'
-    #     dest: files/vaults/remotevault.yml
-    #     mode: '0644'
+    - name: Grab vault from remote url
+      when: 'remotevault is true'
+      ansible.builtin.get_url:
+        url: '{{ my_remote_vault }}'
+        dest: files/vaults/remotevault.yml
+        mode: '0644'
 
-    # - name: Include my Remote vault
-    #   when: 'remotevault is true'
-    #   ansible.builtin.include_vars:
-    #     dir: files/vaults
-    #     files_matching: remotevault.yml
+    - name: Include my Remote vault
+      when: 'remotevault is true'
+      ansible.builtin.include_vars:
+        dir: files/vaults
+        files_matching: remotevault.yml
 
     # - name: Include my vault
-    #   when: 'remotevault is not defined'
-    #   ansible.builtin.include_vars:
-    #     dir: files/vaults
-    #     files_matching: "{{ my_vault }}"
-
-    # - name: Do stuff
+    #   when: 'remotevault is not defined'https://raw.githubusercontent.com/ericcames/aap.as.code/refs/heads/main/playbooks/files/vaults/ames/vault_ames.yml
     #   vars:
     #     meta_dependency_check: false  # noqa: var-naming[no-role-prefix]
     #   ansible.builtin.include_role:
