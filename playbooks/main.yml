@@ -1,12 +1,12 @@
 - name: Setup Ansible Automation Platform
   hosts: localhost
   gather_facts: false
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-    my_organization: "Norville"
-    my_aap_url: "https://aap.thenorvilles.com"
-    my_aap_credential: "aap.thenorvilles.com"
-    my_vault: Norville
+  # vars:
+  #   ansible_python_interpreter: /usr/bin/python3
+  #   my_organization: "Norville"
+  #   my_aap_url: "https://aap.thenorvilles.com"
+  #   my_aap_credential: "aap.thenorvilles.com"
+  #   my_vault: Norville
 
     # There is a bug in the infra.aap_configuration that causes the need for thing
     # When bug https://issues.redhat.com/browse/AAP-39349 this section can go away
