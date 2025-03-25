@@ -42,9 +42,9 @@
     #     scope: write
     #     state: present
 
-    # - name: Include configurations
-    #   ansible.builtin.include_vars:
-    #     dir: files/config_as_code
+    - name: Include configurations
+      ansible.builtin.include_vars:
+        dir: files/config_as_code
 
     # - name: Grab vault from remote url
     #   when: 'remotevault is true'
