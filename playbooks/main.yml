@@ -6,7 +6,7 @@
   #   my_organization: "Norville"
   #   my_aap_url: "https://aap.thenorvilles.com"
   #   my_aap_credential: "aap.thenorvilles.com"
-  #   my_vault: Norville
+    my_vault: Norville
 
     # There is a bug in the infra.aap_configuration that causes the need for thing
     # When bug https://issues.redhat.com/browse/AAP-39349 this section can go away
@@ -32,16 +32,6 @@
           - "Red Hat Ansible Automation Platform credential is not set"
           - "Please assign correct credentials to the Job Template"
 
-    # - name: Create a new token using username and password
-    #   ansible.controller.token:
-    #     controller_host: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}:8443"
-    #     controller_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
-    #     controller_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
-    #     validate_certs: false
-    #     description: AAP Setup
-    #     scope: write
-    #     state: present
-
     - name: Include configurations
       ansible.builtin.include_vars:
         dir: files/config_as_code
@@ -61,6 +51,9 @@
 
     - name: Include my vault
       when: 'remotevault is not defined'
+      ansible.builtin.include_vars:
+        dir: files/vaults
+        files_matching: "{{ my_vault }}"
 
 
     - name: Invoke the role to configure the AAP Platform
