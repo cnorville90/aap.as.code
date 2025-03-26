@@ -59,17 +59,20 @@
         dir: files/vaults
         files_matching: remotevault.yml
 
-    # - name: Include my vault
-    #   when: 'remotevault is not defined'https://raw.githubusercontent.com/ericcames/aap.as.code/refs/heads/main/playbooks/files/vaults/ames/vault_ames.yml
-    #   vars:
-    #     meta_dependency_check: false  # noqa: var-naming[no-role-prefix]
-    #   ansible.builtin.include_role:
-    #     name: infra.aap_configuration.dispatch
+    - name: Include my vault
+      when: 'remotevault is not defined'
 
-    # - name: Print Message
-    #   when: user_message is defined
-    #   ansible.builtin.debug:
-    #     msg: "{{ user_message }}"
+
+    - name: Invoke the role to configure the AAP Platform
+      vars:
+        meta_dependency_check: false  # noqa: var-naming[no-role-prefix]
+      ansible.builtin.include_role:
+        name: infra.aap_configuration.dispatch
+
+    - name: Print Message
+      when: user_message is defined
+      ansible.builtin.debug:
+        msg: "{{ user_message }}"
 
     # # - name: Remove my token
     # #   ansible.controller.token:
