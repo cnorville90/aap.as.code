@@ -2,10 +2,10 @@
   hosts: localhost
   gather_facts: false
   vars:
-  #   ansible_python_interpreter: /usr/bin/python3
-  #   my_organization: "Norville"
-  #   my_aap_url: "https://aap.thenorvilles.com"
-  #   my_aap_credential: "aap.thenorvilles.com"
+    ansible_python_interpreter: /usr/bin/python3
+    my_organization: "Default"
+    my_aap_url: "https://aap.thenorvilles.com"
+    my_aap_credential: "aap.thenorvilles.com"
     my_vault: Norville
 
     # There is a bug in the infra.aap_configuration that causes the need for thing
