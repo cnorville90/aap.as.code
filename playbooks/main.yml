@@ -1,6 +1,9 @@
 - name: Setup Ansible Automation Platform
   hosts: localhost
   gather_facts: false
+
+  # These are Variables that should be overridden in the Extra Vars section of the AAP Job Template.
+  # The values below are used if running from the CLI
   vars:
     ansible_python_interpreter: /usr/bin/python3
     my_organization: "IT Service Automation"
@@ -37,21 +40,21 @@
           - "Red Hat Ansible Automation Platform credential is not set"
           - "Please assign correct credentials to the Job Template"
 
-    # - name: Create a new token
-    #   ansible.platform.token:
-    #     aap_hostname: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
-    #     aap_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
-    #     aap_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
-    #     aap_validate_certs: false
-    #     description: AAP Setup
-    #     scope: write
-    #     state: present
+    - name: Create a new token
+      ansible.platform.token:
+        aap_hostname: "{{ lookup('ansible.builtin.env', 'CONTROLLER_HOST') }}"
+        aap_username: "{{ lookup('ansible.builtin.env', 'CONTROLLER_USERNAME') }}"
+        aap_password: "{{ lookup('ansible.builtin.env', 'CONTROLLER_PASSWORD') }}"
+        aap_validate_certs: false
+        description: AAP Setup
+        scope: write
+        state: present
 
-    # - name: Grab vault from remote url
-    #   ansible.builtin.get_url:
-    #     url: '{{ my_remote_vault }}'
-    #     dest: files/config_as_code/remotevault.yml
-    #     mode: '0644'
+    - name: Grab vault from remote url
+      ansible.builtin.get_url:
+        url: '{{ my_remote_vault }}'
+        dest: files/config_as_code/remotevault.yml
+        mode: '0644'
 
     # - name: Include configurations
     #   ansible.builtin.include_vars:
