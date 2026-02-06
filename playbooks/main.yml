@@ -6,7 +6,7 @@
     my_organization: "IT Service Automation"
     my_aap_url: ""
     my_aap_credential: "AAP Credential"
-    my_remote_vault: ""
+    my_remote_vault: "https://raw.githubusercontent.com/cnorville90/aap.as.code/refs/heads/main/vault_norville.yml"
     aap_configuration_async_retries: 60
     aap_configuration_async_delay: 2
     controller_configuration_settings_secure_logging: true
